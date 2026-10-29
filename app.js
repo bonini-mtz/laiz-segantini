@@ -1,5 +1,13 @@
 'use strict';
 (() => {
+  const heroVideo=document.querySelector('.hero-video');
+  if(heroVideo){
+    heroVideo.muted=true;
+    const startVideo=()=>{if(!document.hidden)heroVideo.play().catch(()=>{});};
+    startVideo();
+    document.addEventListener('visibilitychange',()=>document.hidden?heroVideo.pause():startVideo());
+    document.addEventListener('pointerdown',startVideo,{once:true,passive:true});
+  }
   const gallery = window.LAIZ_GALLERIES;
   const projects = [
     {id:'city',name:'City Galleria',region:'Região do Galleria · Campinas/SP',filter:'galleria',tag:'2 dormitórios',size:'wide',cover:0,summary:'Varanda, plantas de até 53,59 m² e espaços para aproveitar a vida.',description:'Apartamentos de dois dormitórios com varanda, na região do Galleria, em Campinas. Plantas diferenciadas de até 53,59 m².',features:['2 dormitórios','Varanda','Plantas de até 53,59 m²','Condomínio fechado','Piscinas','Quadra de areia'],extra:'Opções vinculadas ao Minha Casa Minha Vida, conforme condições aplicáveis.'},
@@ -18,11 +26,11 @@
     const img=gallery[p.id][p.cover];
     const article=document.createElement('article');
     article.className='property-card reveal '+(p.size||'');article.dataset.region=p.filter;
-    article.innerHTML=`<button class="property-image-button" data-project="${p.id}" aria-label="Ver galeria e detalhes de ${p.name}"><img src="${img.thumb}" srcset="${img.thumb} 720w, ${img.src} 1600w" sizes="(max-width:520px) calc(100vw - 48px), (max-width:800px) 45vw, ${p.size==='panorama'?'90vw':p.size==='wide'?'53vw':p.size==='medium'?'38vw':'29vw'}" width="${img.width}" height="${img.height}" alt="${img.alt}" loading="lazy"><span class="image-count">${photoIcon}${String(gallery[p.id].length).padStart(2,'0')} ${gallery[p.id].length===1?'IMAGEM':'IMAGENS'}</span><span class="property-arrow" aria-hidden="true">↗</span></button><div class="property-meta"><div><p class="property-region">${p.region}</p><h3>${p.name}</h3>${p.builder?'<p class="property-builder">'+p.builder+'</p>':''}</div>${p.size?' <span class="property-tag">'+p.tag+'</span>':''}</div><p class="property-summary">${p.summary}</p><button class="card-detail" data-project="${p.id}" aria-label="Conhecer ${p.name}">Conhecer empreendimento <span aria-hidden="true">↗</span></button>`;
+    article.innerHTML=`<button class="property-image-button" data-project="${p.id}" aria-label="Ver galeria e detalhes de ${p.name}"><img src="${img.thumb}" srcset="${img.thumb} 720w, ${img.src} 1600w" sizes="(max-width:520px) calc(100vw - 48px), (max-width:800px) 45vw, ${p.size==='panorama'?'90vw':p.size==='wide'?'53vw':p.size==='medium'?'38vw':'29vw'}" width="${img.width}" height="${img.height}" alt="${img.alt}" loading="lazy"><span class="image-count">${photoIcon}${String(gallery[p.id].length).padStart(2,'0')} ${gallery[p.id].length===1?'IMAGEM':'IMAGENS'}</span><span class="property-arrow" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></button><div class="property-meta"><div><p class="property-region">${p.region}</p><h3>${p.name}</h3>${p.builder?'<p class="property-builder">'+p.builder+'</p>':''}</div>${p.size?' <span class="property-tag">'+p.tag+'</span>':''}</div><p class="property-summary">${p.summary}</p><button class="card-detail" data-project="${p.id}" aria-label="Conhecer ${p.name}">Conhecer empreendimento <span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></button>`;
     const preview=document.createElement('button');
     preview.className='card-gallery';preview.dataset.project=p.id;
     preview.setAttribute('aria-label',`Ver ${gallery[p.id].length} ${gallery[p.id].length===1?'foto':'fotos'} de ${p.name}`);
-    preview.innerHTML=`<span class="preview-stack" aria-hidden="true">${gallery[p.id].slice(0,3).map(photo=>`<img src="${photo.thumb}" width="52" height="44" loading="lazy" alt="">`).join('')}</span><span class="preview-copy"><strong>${gallery[p.id].length===1?'Ver imagem do projeto':'Ver todas as fotos'}</strong><small>${gallery[p.id].length} ${gallery[p.id].length===1?'imagem disponível':'imagens para explorar'}</small></span><span class="preview-arrow" aria-hidden="true">↗</span>`;
+    preview.innerHTML=`<span class="preview-stack" aria-hidden="true">${gallery[p.id].slice(0,3).map(photo=>`<img src="${photo.thumb}" width="52" height="44" loading="lazy" alt="">`).join('')}</span><span class="preview-copy"><strong>${gallery[p.id].length===1?'Ver imagem do projeto':'Ver todas as fotos'}</strong><small>${gallery[p.id].length} ${gallery[p.id].length===1?'imagem disponível':'imagens para explorar'}</small></span><span class="preview-arrow" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span>`;
     article.insertBefore(preview,article.querySelector('.card-detail'));
     grid.append(article);
   });
