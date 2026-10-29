@@ -360,3 +360,13 @@ html.motion-enabled { scroll-behavior: smooth !important; }
  .footer address { font-size:15px; line-height:1.8; }
 }
 @media(max-width:360px) { .hero-foot { padding-inline:20px; gap:8px; } .hero-project { font-size:18px; padding:8px; } .scroll-cue { font-size:8px; max-width:135px; } }
+/* Abertura móvel com o texto novamente sobre o vídeo. */
+@media(max-width:600px) {
+ .hero { min-height:700px; }
+ .hero-content { padding-top:40px; padding-bottom:130px; }
+ .hero-media { position:absolute; inset:0; width:100%; aspect-ratio:auto; z-index:-3; border:0; }
+ .hero-media .hero-video { object-position:50% bottom; z-index:auto; }
+ .hero-shade { display:block; background:linear-gradient(180deg,rgba(10,26,29,.88) 0%,rgba(10,26,29,.72) 45%,rgba(10,26,29,.22) 76%,rgba(10,26,29,.55) 100%); }
+ .hero-foot { width:auto; margin:auto 24px 25px; padding:0; background:transparent; }
+ .hero-project { background:#10212380; }
+}
