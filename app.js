@@ -47,7 +47,7 @@
   menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
   menu.addEventListener('keydown',e=>{if(e.key==='Tab'){const links=[menuButton,...menu.querySelectorAll('a')];if(e.shiftKey&&document.activeElement===menuButton){e.preventDefault();links.at(-1).focus();}else if(!e.shiftKey&&document.activeElement===links.at(-1)){e.preventDefault();menuButton.focus();}}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);menuButton.focus();}});
-  menuButton.addEventListener('keydown',e=>{if(e.key==='Tab'&&e.shiftKey&&menu.classList.contains('open')){e.preventDefault();menu.querySelectorAll('a')[4].focus();}});
+  menuButton.addEventListener('keydown',e=>{if(e.key==='Tab'&&e.shiftKey&&menu.classList.contains('open')){e.preventDefault();[...menu.querySelectorAll('a')].at(-1).focus();}});
   window.matchMedia('(min-width:1001px)').addEventListener('change',e=>{if(e.matches)setMenu(false);});
   let current=null,index=0,opener=null;
   const galleryImage=document.getElementById('gallery-image'),thumbs=document.getElementById('thumbnails');
